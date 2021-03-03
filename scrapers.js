@@ -1,11 +1,10 @@
-const { Console } = require("console");
 const puppeteer = require("puppeteer");
 
 async function scrapeChannel(url, techInput) {
 
   const browser = await puppeteer.launch({
-    headless: false, 
-    args : ["--no-sandbox"]
+    headless: true,
+    args: ['--no-sandbox','--disable-setuid-sandbox']
   });
 
   const page = await browser.newPage();
