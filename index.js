@@ -24,6 +24,10 @@ app.listen(port, () =>
   console.log(`JobScrape listening at http://localhost:${port}`)
 );
 
+app.get("/get", (req, res)=>{
+  res.send("API up and running")
+})
+
 app.post("/something", async (req, res) => {
   console.log("something endpoint", req.body);
   const jobData = await scrapers.scrapeChannel(req.body.customURL, req.body.techInput);
