@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const ip = process.env.IP || '0.0.0.0';
 const port = process.env.PORT || 5500;
 const bodyParser = require("body-parser");
 const scrapers = require("./scrapers");
@@ -14,9 +13,9 @@ app.use(
 
 app.use(express.json());
 app.use(function (req, res, next) {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
   next();
 });
 
