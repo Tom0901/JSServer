@@ -10,7 +10,6 @@ async function scrapeChannel(url, techInput) {
 
   const page = await browser.newPage();
   await page.goto(url);
-  await page.waitFor(1000);
 
   let titles = await page.evaluate(() =>
     Array.from(
