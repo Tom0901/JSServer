@@ -1,8 +1,9 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 5500;
-const bodyParser = require("body-parser");
-const scrapers = require("./scrapers");
+const express = require("express"), 
+app = express(), 
+port = process.env.PORT || 5500,
+bodyParser = require("body-parser"),
+cors = require("cors"), 
+scrapers = require("./scrapers");
 
 app.use(bodyParser.json());
 app.use(
@@ -12,12 +13,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  next();
-});
+app.use(cors())
 
 app.listen(port, () =>
   console.log(`JobScrape listening at http://localhost:${port}`)
