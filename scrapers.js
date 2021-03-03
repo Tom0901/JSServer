@@ -8,7 +8,7 @@ async function scrapeChannel(url, techInput) {
   });
 
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto(url, {waitUntil: 'networkidle2'});
 
   let titles = await page.evaluate(() =>
     Array.from(
@@ -17,13 +17,17 @@ async function scrapeChannel(url, techInput) {
     )
   );
 
+  console.log(titles)
+
   const hrefs = await page.evaluate(() =>
     Array.from(
-      document.querySelectorAll(".EDblX"),
+      document.querySelectorAll(".iFjolb"),
       (element) =>
         element.firstElementChild.firstElementChild.firstElementChild.href
     )
   );
+
+  console.log(hrefs)
 
   browser.close();
 
