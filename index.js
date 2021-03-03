@@ -24,6 +24,10 @@ app.listen(port, () =>
   console.log(`JobScrape listening at http://localhost:${port}`)
 );
 
+app.home("/", (req, res)=>{
+  res.send("on the home page")
+})
+
 app.get("/get", (req, res)=>{
   res.send("API up and running")
 })
