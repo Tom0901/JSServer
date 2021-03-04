@@ -26,6 +26,11 @@ app.get("/", (req, res)=>{
 
 app.post("/something", async (req, res) => {
   console.log("something endpoint", req.body);
-  const jobData = await scrapers.scrapeChannel(req.body.customURL, req.body.techInput);
-  res.send(jobData);
+  try{
+    const jobData = await scrapers.scrapeChannel(req.body.customURL, req.body.techInput);
+    res.send(jobData);
+  }
+  catch(error){
+    console.log(error)
+  }
 });
