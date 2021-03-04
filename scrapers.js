@@ -54,12 +54,23 @@ async function scrapeChannel(url, techInput) {
   
   if (shotResult){
     console.log("cloudinaryPromise called")
-    return cloudinaryPromise(shotResult, cloudinary_options);
+    //return cloudinaryPromise(shotResult, cloudinary_options);
   }else{
     return null;
   }
   
-  //page.waitForSelector('.PUpOsf')
+  //clicking the cookie btn 
+  let cookiesTest = await page.evaluate(()=>{
+    if(document.querySelector(".snByac")){
+      console.log("inside btn logic")
+      let button = await document.querySelector(".snByac"); 
+      await button.click()
+    }
+    else{
+       console.log("there is no cookies check")
+    }
+  })
+  await page.waitForSelector('.PUpOsf')
   let titles = await page.evaluate(() =>
     Array.from(
       document.getElementsByClassName("PUpOsf"),
