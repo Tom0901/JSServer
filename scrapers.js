@@ -39,7 +39,7 @@ async function scrapeChannel(url, techInput) {
 
   
   //clicking the cookie btn 
-  let cookiesTest = await page.evaluate(async ()=>{
+  await page.evaluate(async ()=>{
     if(document.querySelector(".snByac")){
       console.log("inside btn logic")
       let button = await document.querySelector(".snByac"); 
@@ -50,7 +50,8 @@ async function scrapeChannel(url, techInput) {
     }
   })
 
-  //taking a screenshgot to diagnose error 
+  //taking a screenshot to diagnose error 
+  /*
   let shotResult = await page.screenshot({
     fullPage: true
   }).then((result) => {
@@ -71,6 +72,7 @@ async function scrapeChannel(url, techInput) {
   }else{
     return null;
   }
+  */
 
   await page.waitForSelector('.PUpOsf')
   let titles = await page.evaluate(() =>
