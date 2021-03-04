@@ -22,6 +22,30 @@ function cloudinaryPromise(shotResult, cloudinary_options){
   });
 }
 
+//taking a screenshot to diagnose error 
+  /*
+  let shotResult = await page.screenshot({
+    fullPage: true
+  }).then((result) => {
+    console.log(` got some results.`, result);
+    return result;
+  }).catch(e => {
+    console.error(` Error in snapshotting news`, e);
+    return false;
+  });
+  
+  const cloudinary_options = { 
+    public_id: "newsshot"
+  };
+  
+  if (shotResult){
+    console.log("cloudinaryPromise called")
+    return cloudinaryPromise(shotResult, cloudinary_options);
+  }else{
+    return null;
+  }
+  */
+
 async function scrapeChannel(url, techInput) {
 
   const browser = await puppeteer.launch({
@@ -49,30 +73,6 @@ async function scrapeChannel(url, techInput) {
        console.log("there is no cookies check")
     }
   })
-
-  //taking a screenshot to diagnose error 
-  /*
-  let shotResult = await page.screenshot({
-    fullPage: true
-  }).then((result) => {
-    console.log(` got some results.`, result);
-    return result;
-  }).catch(e => {
-    console.error(` Error in snapshotting news`, e);
-    return false;
-  });
-  
-  const cloudinary_options = { 
-    public_id: "newsshot"
-  };
-  
-  if (shotResult){
-    console.log("cloudinaryPromise called")
-    return cloudinaryPromise(shotResult, cloudinary_options);
-  }else{
-    return null;
-  }
-  */
 
   await page.waitForSelector('.PUpOsf')
   let titles = await page.evaluate(() =>
