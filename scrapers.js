@@ -60,7 +60,7 @@ async function scrapeChannel(url, techInput) {
   }
   
   //clicking the cookie btn 
-  let cookiesTest = await page.evaluate(()=>{
+  let cookiesTest = await page.evaluate(async ()=>{
     if(document.querySelector(".snByac")){
       console.log("inside btn logic")
       let button = await document.querySelector(".snByac"); 
@@ -70,6 +70,7 @@ async function scrapeChannel(url, techInput) {
        console.log("there is no cookies check")
     }
   })
+
   await page.waitForSelector('.PUpOsf')
   let titles = await page.evaluate(() =>
     Array.from(
