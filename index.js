@@ -14,7 +14,6 @@ app.use(
 
 app.use(express.json());
 app.use(cors());
-app.options('/products/:id', cors())
 
 app.listen(port, () =>
   console.log(`JobScrape listening at http://localhost:${port}`)
