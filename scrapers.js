@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 
+
 async function scrapeChannel(url, techInput) {
 
   const browser = await puppeteer.launch({
@@ -12,20 +13,18 @@ async function scrapeChannel(url, techInput) {
     'Accept-Language': 'en-US,en;q=0.9'
   });
   await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36');
-  await page.goto(url, {  waitUntil: 'networkidle2',timeout: 0});
-  page.setDefaultTimeout(0); 
-  
-  try{
-    await page.waitForSelector('.PUpOsf');
-  }
-  catch{
-    const buffer = await page.screenshot({
-    fullPage: true,
-    type: 'png'
-    }) 
-    return buffer
-  }
+  await page.goto(url, {  waitUntil: 'networkidle2'});
+  //page.setDefaultTimeout(0); 
 
+  const screenshot = await page.screenshot({
+    path: "./screenshot.jpg",
+    type: "jpeg",
+    fullPage: true
+  });
+
+  console.log(screenshot)
+  
+  //page.waitForSelector('.PUpOsf')
 
   let titles = await page.evaluate(() =>
     Array.from(
