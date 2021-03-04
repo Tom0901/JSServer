@@ -37,6 +37,19 @@ async function scrapeChannel(url, techInput) {
   await page.goto(url, {  waitUntil: 'networkidle2'});
   //page.setDefaultTimeout(0); 
 
+  
+  //clicking the cookie btn 
+  let cookiesTest = await page.evaluate(async ()=>{
+    if(document.querySelector(".snByac")){
+      console.log("inside btn logic")
+      let button = await document.querySelector(".snByac"); 
+      await button.click()
+    }
+    else{
+       console.log("there is no cookies check")
+    }
+  })
+
   //taking a screenshgot to diagnose error 
   let shotResult = await page.screenshot({
     fullPage: true
@@ -54,22 +67,10 @@ async function scrapeChannel(url, techInput) {
   
   if (shotResult){
     console.log("cloudinaryPromise called")
-    //return cloudinaryPromise(shotResult, cloudinary_options);
+    return cloudinaryPromise(shotResult, cloudinary_options);
   }else{
     return null;
   }
-  
-  //clicking the cookie btn 
-  let cookiesTest = await page.evaluate(async ()=>{
-    if(document.querySelector(".snByac")){
-      console.log("inside btn logic")
-      let button = await document.querySelector(".snByac"); 
-      await button.click()
-    }
-    else{
-       console.log("there is no cookies check")
-    }
-  })
 
   await page.waitForSelector('.PUpOsf')
   let titles = await page.evaluate(() =>
