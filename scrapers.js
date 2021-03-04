@@ -1,5 +1,26 @@
 const puppeteer = require("puppeteer");
+const cloudinary = require('cloudinary');
 
+cloudinary.config({
+  cloud_name: 'tom090',
+  api_key: '192638642153467',
+  api_secret: 'LBfa0lJUOnQttwyJz0RB9a8dAi0'
+});
+
+function cloudinaryPromise(shotResult, cloudinary_options){
+  return new Promise(function(res, rej){
+    console.log("inside promise ")
+    cloudinary.v2.uploader.upload_stream(cloudinary_options,
+      function (error, cloudinary_result) {
+        if (error){
+          console.error('Upload to cloudinary failed: ', error);
+          rej(error);
+        }
+        res(cloudinary_result);
+      }
+    ).end(shotResult);
+  });
+}
 
 async function scrapeChannel(url, techInput) {
 
@@ -16,16 +37,29 @@ async function scrapeChannel(url, techInput) {
   await page.goto(url, {  waitUntil: 'networkidle2'});
   //page.setDefaultTimeout(0); 
 
-  const screenshot = await page.screenshot({
-    path: "./screenshot.jpg",
-    type: "jpeg",
+  //taking a screenshgot to diagnose error 
+  let shotResult = await page.screenshot({
     fullPage: true
+  }).then((result) => {
+    console.log(` got some results.`, result);
+    return result;
+  }).catch(e => {
+    console.error(` Error in snapshotting news`, e);
+    return false;
   });
-
-  console.log(screenshot)
+  
+  const cloudinary_options = { 
+    public_id: "newsshot"
+  };
+  
+  if (shotResult){
+    console.log("cloudinaryPromise called")
+    return cloudinaryPromise(shotResult, cloudinary_options);
+  }else{
+    return null;
+  }
   
   //page.waitForSelector('.PUpOsf')
-
   let titles = await page.evaluate(() =>
     Array.from(
       document.getElementsByClassName("PUpOsf"),
